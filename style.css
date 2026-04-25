@@ -4,7 +4,7 @@
    ════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,600;1,600&family=Roboto:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap');
 /* ──────────── TOKENS ──────────── */
 :root {
   --blue-deep:   #020b1a;
@@ -22,6 +22,9 @@
   --font-display: 'Space Grotesk', sans-serif;   /* Hero titles, section headings */
   --font-label:   'Montserrat', sans-serif;       /* Tags, caps labels, card titles */
   --font-body:    'DM Sans', sans-serif;          /* Body text, descriptions */
+  --font-primary: 'Manrope', sans-serif;
+  --font-secundary: 'Inter', sans-serif;
+  --font-tertiary: 'Roboto', sans-serif;
 }
 
 /* ──────────── RESET ──────────── */
@@ -29,10 +32,11 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: var(--font-display);
+  
   background: var(--blue-deep);
   color: var(--white);
   overflow-x: hidden;
+  font-family: var(--font-display) ;
   
 }
 h4{
@@ -48,6 +52,7 @@ body::before {
   pointer-events: none;
   z-index: 0;
   opacity: .55;
+ 
 }
 
 /* ──────────── NAV ──────────── */
@@ -68,6 +73,8 @@ nav {
               opacity .38s ease,
               background .3s ease,
               box-shadow .3s ease;
+  
+  font-family: var(--font-display) ;
 }
 
 /* Scrolled state — slightly more opaque */
@@ -105,10 +112,11 @@ nav.nav-hidden {
 .nav-links {
   display: flex;
   gap: 2.5rem;
-  list-style: none;
+  list-style: none;  
 }
+
 .nav-links a {
-  font-family: var(--font-label);
+  font-family: var(--font-display);
   font-size: .82rem;
   font-weight: 500;
   color: var(--white-soft);
@@ -170,9 +178,9 @@ nav.nav-hidden {
 }
 
 .hero-title {
-  font-family: var(--font-display);
+  font-family: var(--font-tertiary);
   font-size: clamp(3rem, 8vw, 6.5rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.0;
   letter-spacing: -.04em;
   position: relative;
@@ -270,7 +278,7 @@ nav.nav-hidden {
 section { position: relative; z-index: 1; }
 
 .section-tag {
-  font-family: var(--font-label);
+  font-family: var(--font-display);
   display: inline-block;
   font-size: .7rem;
   font-weight: 700;
@@ -344,18 +352,20 @@ section { position: relative; z-index: 1; }
   display: block;
 }
 
-.service-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+.service-card h2 {
+  font-family: var(--font-body);
+  font-size: 4rem;
   font-weight: 600;
   margin-bottom: .6rem;
+  margin-top: 0.5rem;
 }
 
 .service-card p {
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 300;
   color: var(--white-soft);
   line-height: 1.65;
+  margin-top: 0.5rem;
 }
 
 .service-packages {
@@ -376,7 +386,7 @@ section { position: relative; z-index: 1; }
   font-weight: 600;
   letter-spacing: .03em;
   cursor: pointer;
-  margin: .25rem;
+  margin-top: 1.25rem;
   transition: background .2s, border-color .2s;
 }
 .package-btn:hover { background: rgba(41,121,255,.2); border-color: var(--blue-bright); }
