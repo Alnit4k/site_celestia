@@ -15,7 +15,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#explore">Explore</a></li>
+   <!-- <li><a href="#explore">Explore</a></li> -->
     <li><a href="#portfolio">Portfólio</a></li>
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#contato" class="nav-cta">Fale conosco</a></li>
@@ -51,7 +51,6 @@
 <!-- SERVICES -->
 <section id="servicos">
   <div class="services-header">
-    <span class="section-tag">O que fazemos</span>
     <h2 class="section-title">Soluções que<br>transformam lares em inteligentes</h2>
     <p class="section-sub">Da iluminação ao clima, integramos tudo em um ecossistema inteligente controlado na palma da sua mão.</p>
   </div>
@@ -110,6 +109,10 @@
         <img class="sv-img" data-img="3" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=80" alt="Eficiência energética"/>
         <img class="sv-img" data-img="4" src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=700&q=80" alt="Home theater"/>
         <img class="sv-img" data-img="5" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80" alt="Central de controle"/>
+      </div>
+      <div class="sv-img-controls">
+        <button class="sv-img-nav sv-img-prev" type="button" aria-label="Imagem anterior">‹</button>
+        <button class="sv-img-nav sv-img-next" type="button" aria-label="Próxima imagem">›</button>
       </div>
     </div>
 
@@ -200,14 +203,14 @@
 
 
 <!-- ══════════════ EXPLORE – CARROSSEL ══════════════ -->
-<section id="explore">
+ <!--  <section id="explore">
   <div class="explore-header">
     <span class="section-tag">Explore</span>
     <h2 class="section-title">Sua casa,<br>ambiente por ambiente</h2>
     <p class="section-sub">Navegue pelos cômodos e descubra como a Celestia transforma cada espaço da sua residência.</p>
   </div>
 
-  <!-- TAB NAVIGATION -->
+
   <div class="room-tabs" id="roomTabs">
     <button class="room-tab active" data-room="0">
       <span class="tab-icon">🛏️</span>
@@ -235,16 +238,16 @@
     </button>
   </div>
 
-  <!-- CAROUSEL STAGE -->
+
   <div class="carousel-stage" id="carouselStage">
 
-    <!-- QUARTO -->
+    
     <div class="room-slide active" data-room="0">
       <div class="room-visual">
         <div class="room-scene bedroom-scene">
           <div class="scene-bg"></div>
           <div class="scene-overlay"></div>
-          <!-- animated elements -->
+          
           <div class="scene-light bedroom-light"></div>
           <div class="scene-element bed-icon">🛏️</div>
           <div class="scene-particles">
@@ -309,7 +312,7 @@
       </div>
     </div>
 
-    <!-- SALA DE ESTAR -->
+    
     <div class="room-slide" data-room="1">
       <div class="room-visual">
         <div class="room-scene living-scene">
@@ -379,7 +382,7 @@
       </div>
     </div>
 
-    <!-- COZINHA -->
+ 
     <div class="room-slide" data-room="2">
       <div class="room-visual">
         <div class="room-scene kitchen-scene">
@@ -449,7 +452,7 @@
       </div>
     </div>
 
-    <!-- BANHEIRO -->
+   
     <div class="room-slide" data-room="3">
       <div class="room-visual">
         <div class="room-scene bath-scene">
@@ -519,7 +522,7 @@
       </div>
     </div>
 
-    <!-- ÁREA GOURMET -->
+    
     <div class="room-slide" data-room="4">
       <div class="room-visual">
         <div class="room-scene gourmet-scene">
@@ -589,7 +592,7 @@
       </div>
     </div>
 
-    <!-- PISCINA -->
+   
     <div class="room-slide" data-room="5">
       <div class="room-visual">
         <div class="room-scene pool-scene">
@@ -659,9 +662,9 @@
       </div>
     </div>
 
-  </div><!-- /carousel-stage -->
+  </div>
 
-  <!-- CAROUSEL CONTROLS -->
+  
   <div class="carousel-controls">
     <button class="ctrl-btn prev-btn" id="prevRoom" aria-label="Anterior">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
@@ -679,7 +682,8 @@
     </button>
   </div>
 
-</section>
+</section>    -->
+
 <!-- ══════════════ FIM EXPLORE ══════════════ -->
 
 <!-- PORTFOLIO -->
@@ -872,16 +876,30 @@
 
 <script>
 // ─── SERVICES TAB ───
-document.querySelectorAll('.sv-item').forEach(btn => {
+const serviceItems = document.querySelectorAll('.sv-item');
+const servicePanes = document.querySelectorAll('.sv-pane');
+const serviceImgs = document.querySelectorAll('.sv-img');
+let activeService = 0;
+
+function setService(index) {
+  activeService = (index + serviceItems.length) % serviceItems.length;
+  serviceItems.forEach(btn => btn.classList.toggle('active', parseInt(btn.dataset.svc, 10) === activeService));
+  servicePanes.forEach(pane => pane.classList.toggle('active', parseInt(pane.dataset.pane, 10) === activeService));
+  serviceImgs.forEach(img => img.classList.toggle('active', parseInt(img.dataset.img, 10) === activeService));
+}
+
+serviceItems.forEach(btn => {
   btn.addEventListener('click', () => {
-    const idx = btn.dataset.svc;
-    document.querySelectorAll('.sv-item').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.sv-pane').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.sv-img').forEach(i => i.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelector(`.sv-pane[data-pane="${idx}"]`).classList.add('active');
-    document.querySelector(`.sv-img[data-img="${idx}"]`).classList.add('active');
+    setService(parseInt(btn.dataset.svc, 10));
   });
+});
+
+document.querySelector('.sv-img-prev').addEventListener('click', () => {
+  setService(activeService - 1);
+});
+
+document.querySelector('.sv-img-next').addEventListener('click', () => {
+  setService(activeService + 1);
 });
 
 // ─── EXPLORE CAROUSEL ───
@@ -963,26 +981,26 @@ document.getElementById('carouselStage').addEventListener('touchend', e => {
   let lastScrollY = window.scrollY;
   let ticking = false;
 
+  function updateNavbar() {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY < 80) {
+      nav.classList.remove('nav-hidden', 'nav-scrolled');
+    } else if (currentScrollY > lastScrollY) {
+      nav.classList.add('nav-hidden');
+      nav.classList.add('nav-scrolled');
+    } else if (currentScrollY < lastScrollY) {
+      nav.classList.remove('nav-hidden');
+      nav.classList.add('nav-scrolled');
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+
   window.addEventListener('scroll', () => {
     if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY < 80) {
-          // Always show near top
-          nav.classList.remove('nav-hidden');
-          nav.classList.remove('nav-scrolled');
-        } else if (currentScrollY > lastScrollY + 8) {
-          // Scrolling down — hide
-          nav.classList.add('nav-hidden');
-          nav.classList.add('nav-scrolled');
-        } else if (currentScrollY < lastScrollY - 8) {
-          // Scrolling up — show
-          nav.classList.remove('nav-hidden');
-          nav.classList.add('nav-scrolled');
-        }
-        lastScrollY = currentScrollY;
-        ticking = false;
-      });
+      window.requestAnimationFrame(updateNavbar);
       ticking = true;
     }
   });
