@@ -28,7 +28,7 @@
 
 /* ──────────── RESET ──────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 140px; }
 
 body {
   
@@ -95,10 +95,9 @@ nav.nav-hidden {
   text-decoration: none;
 }
 .logo-img {
-  padding-bottom: 2px;
+  padding-bottom: auto;
   height: 4rem;
   width: auto;
-  object-fit: contain;
   /* Remove the dark background from the PNG */
   mix-blend-mode: screen;
   filter: brightness(1.15) contrast(1.05);
@@ -143,7 +142,7 @@ nav.nav-hidden {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8rem 5vw 6rem;
+  padding: 6rem 5vw 5rem;
   position: relative;
   overflow: hidden;
 }
@@ -274,7 +273,19 @@ nav.nav-hidden {
 }
 
 /* ──────────── SECTION BASE ──────────── */
-section { position: relative; z-index: 1; }
+section {
+  position: relative;
+  z-index: 1;
+  scroll-margin-top: 140px;
+}
+
+section[id]::before {
+  content: '';
+  display: block;
+  height: 140px;
+  margin-top: -140px;
+  visibility: hidden;
+}
 
 .section-tag {
   font-family: var(--font-display);
@@ -311,15 +322,22 @@ section { position: relative; z-index: 1; }
 
 /* ──────────── SERVICES – 3 COLUMN LAYOUT ──────────── */
 #servicos {
-  padding: 6rem 5vw;
+  padding: 2.5rem 5vw 3.5rem;
   background: var(--blue-deep);
+}
+
+#servicos::before {
+  content: '';
+  display: block;
+  height: 110px;
+  margin-top: -110px;
 }
 
 .services-header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .services-header .section-tag {
@@ -351,15 +369,15 @@ section { position: relative; z-index: 1; }
 
 .sv-wrap {
   display: grid;
-  grid-template-columns: 280px 1fr 380px;
-  min-height: 620px;
-  gap: 0;
+  grid-template-columns: 240px 1fr 320px;
+  min-height: 460px;
+  gap: 1.5rem;
 }
 
 /* ── LEFT COLUMN ── */
 .sv-left {
   border-right: 1px solid rgba(91,155,255,.15);
-  padding: 3rem 2rem;
+  padding: 1.65rem 1.25rem;
   display: flex;
   flex-direction: column;
   background: rgba(21,101,192,.03);
@@ -367,14 +385,14 @@ section { position: relative; z-index: 1; }
 
 .sv-left-title {
   font-family: var(--font-label);
-  font-size: .75rem;
+  font-size: .85rem;
   font-weight: 700;
-  letter-spacing: .18em;
+  letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--blue-glow);
-  padding-bottom: 1.5rem;
+  color: #ffffff;
+  padding-bottom: 1.3rem;
   border-bottom: 1px solid rgba(91,155,255,.15);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .sv-list {
@@ -387,9 +405,9 @@ section { position: relative; z-index: 1; }
 .sv-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: .9rem;
   width: 100%;
-  padding: 1.1rem 0;
+  padding: .95rem 0;
   border: none;
   border-bottom: 1px solid rgba(91,155,255,.1);
   background: transparent;
@@ -445,13 +463,52 @@ section { position: relative; z-index: 1; }
 .sv-center {
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, rgba(21,101,192,.05) 0%, rgba(41,121,255,.03) 100%);
+  min-height: 420px;
+  max-height: 520px;
 }
 
 .sv-img-wrap {
   position: relative;
   width: 100%;
+  max-width: 720px;
   height: 100%;
+  max-height: 520px;
+  aspect-ratio: 4 / 3;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.sv-img-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  gap: .75rem;
+}
+
+.sv-img-nav {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,10,30,.65);
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+  display: grid;
+  place-items: center;
+}
+
+.sv-img-nav:hover {
+  background: rgba(41,121,255,.95);
+  transform: translateY(-1px);
 }
 
 .sv-img {
@@ -471,7 +528,7 @@ section { position: relative; z-index: 1; }
 /* ── RIGHT COLUMN ── */
 .sv-right {
   border-left: 1px solid rgba(91,155,255,.15);
-  padding: 3.5rem 2.5rem;
+  padding: 1.8rem 1.5rem;
   display: flex;
   align-items: center;
   background: rgba(5,15,34,.5);
@@ -503,11 +560,11 @@ section { position: relative; z-index: 1; }
 
 .sv-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-size: clamp(1.9rem, 2.8vw, 2.5rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -.03em;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   color: var(--white);
 }
 
@@ -517,11 +574,11 @@ section { position: relative; z-index: 1; }
 
 .sv-desc {
   font-family: var(--font-body);
-  font-size: .95rem;
+  font-size: .92rem;
   font-weight: 300;
   color: var(--white-soft);
-  line-height: 1.7;
-  margin-bottom: 2rem;
+  line-height: 1.65;
+  margin-bottom: 1.4rem;
 }
 
 .sv-features {
@@ -534,9 +591,9 @@ section { position: relative; z-index: 1; }
 
 .sv-features li {
   font-family: var(--font-body);
-  font-size: .9rem;
+  font-size: .88rem;
   color: var(--white-soft);
-  padding: .85rem 0;
+  padding: .7rem 0;
   border-bottom: 1px solid rgba(91,155,255,.1);
   display: flex;
   align-items: center;
@@ -566,10 +623,10 @@ section { position: relative; z-index: 1; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: .9rem;
   background: linear-gradient(135deg, var(--blue-bright) 0%, var(--blue-accent) 100%);
   color: #fff;
-  padding: 1rem 1.6rem;
+  padding: .9rem 1.3rem;
   border-radius: .6rem;
   font-family: var(--font-display);
   font-size: .95rem;
