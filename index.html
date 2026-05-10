@@ -978,18 +978,21 @@ document.getElementById('carouselStage').addEventListener('touchend', e => {
 // ─── NAVBAR HIDE ON SCROLL DOWN / SHOW ON SCROLL UP ───
 (function() {
   const nav = document.getElementById('mainNav');
-  let lastScrollY = window.scrollY;
+  if (!nav) return;
+
+  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
   let ticking = false;
+  const scrollThreshold = 80;
+  const delta = 8;
 
   function updateNavbar() {
-    const currentScrollY = window.scrollY;
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (currentScrollY < 80) {
+    if (currentScrollY < scrollThreshold) {
       nav.classList.remove('nav-hidden', 'nav-scrolled');
-    } else if (currentScrollY > lastScrollY) {
-      nav.classList.add('nav-hidden');
-      nav.classList.add('nav-scrolled');
-    } else if (currentScrollY < lastScrollY) {
+    } else if (currentScrollY > lastScrollY + delta) {
+      nav.classList.add('nav-hidden', 'nav-scrolled');
+    } else if (currentScrollY < lastScrollY - delta) {
       nav.classList.remove('nav-hidden');
       nav.classList.add('nav-scrolled');
     }
@@ -1003,7 +1006,9 @@ document.getElementById('carouselStage').addEventListener('touchend', e => {
       window.requestAnimationFrame(updateNavbar);
       ticking = true;
     }
-  });
+  }, { passive: true });
+
+  updateNavbar();
 })();
 </script>
 
